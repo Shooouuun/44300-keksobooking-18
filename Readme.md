@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
 * Студент: [Sergey Kolgaev](https://up.htmlacademy.ru/javascript/18/user/44300).
-* Наставник: `Неизвестно`.
+* Наставник: [Arseny Medoev](https://htmlacademy.ru/profile/id87533).
 
 ---
 
