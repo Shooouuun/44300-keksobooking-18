@@ -13,7 +13,7 @@ var PHOTOS = [
 var mapPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 var mapPins = document.querySelector('.map__pins');
 var map = document.querySelector('.map');
-    map.classList.remove('map--faded');
+map.classList.remove('map--faded');
 
 function getRandomElementFromArray(arr) {
   return arr[Math.floor(Math.random() * arr.length)];
