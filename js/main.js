@@ -2,6 +2,10 @@
 
 var DEALS_NEARBY_AMOUNT = 8;
 var TYPES = ['palace', 'flat', 'house', 'bungalo'];
+var TITLES = ['TitleOne', 'TitleTwo', 'TitleTree'];
+var PRICES = ['500', '1000', '1500'];
+var ROOMS = ['1', '2', '3', '4'];
+var DESCRIPTION = ['DescriptionOne', 'DescriptionTwo', 'DescriptionTree'];
 var CHECK_TIMES = ['12:00', '13:00', '14:00'];
 var FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 var PHOTOS = [
@@ -40,16 +44,16 @@ function createDealsArray(count) {
         avatar: 'img/avatars/user0' + i + '.png'
       },
       offer: {
-        title: 'Title',
+        title: getRandomElementFromArray(TITLES),
         address: '600, 350',
-        price: 1000,
+        price: getRandomElementFromArray(PRICES),
         type: getRandomElementFromArray(TYPES),
-        rooms: 4,
+        rooms: getRandomElementFromArray(ROOMS),
         guests: 5,
         checkin: getRandomElementFromArray(CHECK_TIMES),
         checkout: getRandomElementFromArray(CHECK_TIMES),
         features: createRandomLengthArray(FEATURES),
-        description: 'description',
+        description: getRandomElementFromArray(DESCRIPTION),
         photos: createRandomLengthArray(PHOTOS)
       },
       location: {
