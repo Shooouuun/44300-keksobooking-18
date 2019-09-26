@@ -25,7 +25,7 @@ var mapCardTemplate = document.querySelector('#card').content.querySelector('.ma
 
 // случайный элемент из массива
 function getRandomElementFromArray(arr) {
-  return arr[Math.floor(Math.random() * arr.length - 1)];
+  return arr[Math.floor(Math.random() * arr.length)];
 }
 
 // массив случайный длины
@@ -39,6 +39,10 @@ function createRandomLengthArray(arr) {
     }
   }
   return randomArr;
+}
+
+function getRandomInRange(min, max) {
+  return Math.floor(Math.random() * (max - min) + min);
 }
 
 // получаем массив случайных предложений
@@ -56,7 +60,7 @@ function createOffersArray(count) {
         price: getRandomElementFromArray(PRICES),
         type: getRandomElementFromArray(TYPES),
         rooms: getRandomElementFromArray(ROOMS),
-        guests: 5,
+        guests: getRandomInRange(1, 10),
         checkin: getRandomElementFromArray(CHECK_TIMES),
         checkout: getRandomElementFromArray(CHECK_TIMES),
         features: createRandomLengthArray(FEATURES),
