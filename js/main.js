@@ -1,13 +1,13 @@
 'use strict';
 
 var PIN_WIDTH = 50;
-var PIN_HEIGHT = 70;
+var PIN_HEIGHT = 70; /*
 var DEALS_NEARBY_AMOUNT = 8;
 var TYPES = ['palace', 'flat', 'house', 'bungalo'];
 var RUSSIAN_WORDS = {flat: 'Квартира', bungalo: 'Бунгало', house: 'Дом', palace: 'Дворец'};
 var PRICES = ['500', '1000', '1500'];
 var ROOMS = ['1', '2', '3', '4', '5', '6', '7'];
-var NOUNS_ROOMS = ['комната', 'комнаты','комнат'];
+var NOUNS_ROOMS = ['комната', 'комнаты', 'комнат'];
 var NOUNS_GUESTS = ['гостей', 'гостя'];
 var DESCRIPTION = ['DescriptionOne', 'DescriptionTwo', 'DescriptionTree', 'DescriptionFour'];
 var CHECK_TIMES = ['12:00', '13:00', '14:00'];
@@ -90,7 +90,7 @@ function renderPin(offer) {
 
   return pinElement;
 }
-
+/*
 function createPins(arr) {
   var fragment = document.createDocumentFragment();
 
@@ -120,13 +120,13 @@ function createPhotosHTML(photos) {
 }
 
 function declOfNumR(titles, room) {
-  const cases = [2, 0, 1, 1, 1, 2];
+  var cases = [2, 0, 1, 1, 1, 2];
   return titles[(room % 100 > 4 && room % 100 < 20) ? 2 : cases[(room % 10 < 5) ? room % 10 : 5]];
 }
 
 
 function declOfNumG(titles, guests) {
-  const cases = [0, 1, 0];
+  var cases = [0, 1, 0];
   return titles[(guests % 100 > 4 && guests % 100 < 20) ? 0 : cases[(guests % 10 < 2) ? guests % 10 : 2]];
 }
 
@@ -149,16 +149,15 @@ function showCard(offer) {
 
 var offers = createOffersArray(DEALS_NEARBY_AMOUNT);
 
-// createPins(offers);
-// showCard(offers[0]);
-var ESC_KEYCODE = 'Escape';
+createPins(offers);
+showCard(offers[0]); */
 var ENTER_KEYCODE = 'Enter';
 var NUMPAD_ENTER_KEYCODE = 'NumpadEnter';
 
 var pinMain = document.querySelector('.map__pin--main');
 var inputAddress = document.querySelector('#address');
 
-function activeMap () {
+function activeMap() {
   document.querySelector('.map').classList.remove('map--faded');
 
   var mapFilters = document.querySelector('.map__filters');
@@ -173,7 +172,7 @@ function activeMap () {
   for (var j = 0; i < fieldsets.length; j++) {
     fieldsets[j].disabled = false;
   }
-};
+}
 
 function activeFrom() {
   var adForm = document.querySelector('.ad-form');
@@ -193,22 +192,19 @@ pinMain.addEventListener('click', function () {
 });
 
 pinMain.addEventListener('keydown', function (e) {
-  if (e.code === ENTER_KEYCODE || ENTER_KEYCODE){
+  if (e.code === ENTER_KEYCODE || NUMPAD_ENTER_KEYCODE) {
     activeMap();
-    activeFrom()
+    activeFrom();
   }
 });
 
-var pinMain = document.querySelector('.map__pin--main');
-var inputAddress = document.querySelector('#address');
-
 var PIN_ARROW = 22;
 
-var setCoordMainPin = function (isDisabled) {
-  var pinCoordsX = Math.round(pinMain.offsetLeft + (PIN_WIDTH /  2));
+function setCoordMainPin(isDisabled) {
+  var pinCoordsX = Math.round(pinMain.offsetLeft + (PIN_WIDTH / 2));
   var pinCoordsY = Math.round(pinMain.offsetTop + PIN_HEIGHT + PIN_ARROW);
 
-  if (isDisabled){
+  if (isDisabled) {
     pinCoordsX = Math.round(pinMain.offsetLeft + (PIN_WIDTH / 2));
     pinCoordsY = Math.round(pinMain.offsetTop + (PIN_WIDTH / 2));
   }
@@ -223,7 +219,7 @@ var MAX_ROOMS = 100;
 var roomNumber = document.querySelector('#room_number');
 var capacity = document.querySelector('#capacity');
 
-var checkCountRoomsAndPeople = function () {
+function checkCountRoomsAndPeople() {
   var countRooms = roomNumber.value;
   var countPeople = capacity.value;
 
@@ -237,6 +233,6 @@ var checkCountRoomsAndPeople = function () {
   } else if (countRooms < countPeople && countPeople !== 0) {
     capacity.setCustomValidity('Кол-ва людей больше чем мест');
   }
-};
+}
 
 checkCountRoomsAndPeople();
