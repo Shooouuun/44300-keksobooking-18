@@ -1,7 +1,7 @@
 'use strict';
 
-var PIN_WIDTH = 50;
-var PIN_HEIGHT = 70; /*
+var PIN_WIDTH = 65;
+var PIN_HEIGHT = 65;
 var DEALS_NEARBY_AMOUNT = 8;
 var TYPES = ['palace', 'flat', 'house', 'bungalo'];
 var RUSSIAN_WORDS = {flat: 'Квартира', bungalo: 'Бунгало', house: 'Дом', palace: 'Дворец'};
@@ -90,7 +90,7 @@ function renderPin(offer) {
 
   return pinElement;
 }
-/*
+
 function createPins(arr) {
   var fragment = document.createDocumentFragment();
 
@@ -149,18 +149,33 @@ function showCard(offer) {
 
 var offers = createOffersArray(DEALS_NEARBY_AMOUNT);
 
-createPins(offers);
-showCard(offers[0]); */
+
 var ENTER_KEYCODE = 'Enter';
 var NUMPAD_ENTER_KEYCODE = 'NumpadEnter';
 
 var pinMain = document.querySelector('.map__pin--main');
 var inputAddress = document.querySelector('#address');
+var mapFilters = document.querySelector('.map__filters');
+var filterstChild = document.querySelector('.map__filters').children;
+var adForm = document.querySelector('.ad-form');
+var formChild = document.querySelector('.ad-form').children;
+
+function disabledAttribute(filters, form) {
+  for (var i = 0; i < filters.length; i++) {
+    filters[i].disabled = true;
+  }
+
+  for (var j = 0; j < form.length; j++) {
+    form[j].disabled = true;
+  }
+}
+
+disabledAttribute(filterstChild, formChild);
+
+mapFilters.setAttribute('disabled', 'disabled');
 
 function activeMap() {
   document.querySelector('.map').classList.remove('map--faded');
-
-  var mapFilters = document.querySelector('.map__filters');
 
   var selects = mapFilters.querySelectorAll('select');
   var fieldsets = mapFilters.querySelectorAll('fieldset');
@@ -169,13 +184,12 @@ function activeMap() {
     selects[i].disabled = false;
   }
 
-  for (var j = 0; i < fieldsets.length; j++) {
+  for (var j = 0; j < fieldsets.length; j++) {
     fieldsets[j].disabled = false;
   }
 }
 
 function activeFrom() {
-  var adForm = document.querySelector('.ad-form');
   adForm.classList.remove('ad-form--disabled');
 
   var fieldsets = adForm.querySelectorAll('fieldset');
