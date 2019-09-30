@@ -203,6 +203,8 @@ pinMain.addEventListener('click', function () {
   activeMap();
   activeFrom();
   setCoordMainPin();
+  createPins(offers);
+  showCard(offers[0]);
 });
 
 pinMain.addEventListener('keydown', function (e) {
