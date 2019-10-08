@@ -142,7 +142,7 @@ function declOfNumG(titles, guests) {
   return titles[(guests % 100 > 4 && guests % 100 < 20) ? 0 : cases[(guests % 10 < 2) ? guests % 10 : 2]];
 }
 
-function showCard(offer) {
+function renderCard(offer) {
   var cardElement = mapCardTemplate.cloneNode(true);
 
   cardElement.querySelector('.popup__title').textContent = offer.offer.title;
@@ -157,6 +157,8 @@ function showCard(offer) {
   cardElement.querySelector('.popup__avatar').src = offer.author.avatar;
 
   map.insertBefore(cardElement, mapFilter);
+
+  closeCardHandler();
 }
 
 function disabledAttribute(filters, form) {
@@ -244,37 +246,37 @@ checkCountRoomsAndPeople();
 
 var mockData = generateMockData(DEALS_NEARBY_AMOUNT);
 
-function openPopupHandler(pin, offer) {
+function openCardHandler(pin, offer) {
   pin.addEventListener('click', function () {
-    openPopup(offer);
+    openCard(offer);
   });
   pin.addEventListener('keydown', function (evt) {
     if (evt.keyCode === ENTER_KEYCODE) {
-      openPopup(offer);
+      openCard(offer);
     }
   });
 }
 
-function onPopupEscPress(e) {
+function onCardEscPress(e) {
   if (e.keyCode === ESC_KEYCODE) {
     removePopup();
   }
 }
 
-function openPopup(offer) {
+function openCard(offer) {
   var popup = document.querySelector('.popup');
   if (popup) {
     popup.remove();
   }
 
-  showCard(offer);
-  document.addEventListener('keydown', onPopupEscPress);
-  closePopupHandler();
+  renderCard(offer);
+  document.addEventListener('keydown', onCardEscPress);
+  closeCardHandler();
 }
 
-function closePopupHandler() {
-  var closePopup = document.querySelector('.popup__close');
-  closePopup.addEventListener('click', function () {
+function closeCardHandler() {
+  var closeCard = document.querySelector('.popup__close');
+  closeCard.addEventListener('click', function () {
     removePopup();
   });
 }
@@ -282,7 +284,7 @@ function closePopupHandler() {
 function removePopup() {
   var popup = document.querySelector('.popup');
   popup.remove();
-  document.removeEventListener('keydown', onPopupEscPress);
+  document.removeEventListener('keydown', onCardEscPress);
 }
 
 function init() {
@@ -295,6 +297,6 @@ function init() {
 
   var pins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
   for (var i = 0; i < pins.length; i++) {
-    openPopupHandler(pins[i], mockData[i]);
+    openCardHandler(pins[i], mockData[i]);
   }
 }
