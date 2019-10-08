@@ -1,7 +1,6 @@
 'use strict';
 
 var ENTER_KEYCODE = 13;
-
 var ESC_KEYCODE = 27;
 
 var PIN_WIDTH = 65;
@@ -104,9 +103,6 @@ function renderPin(quantity) {
   pinElementImage.src = quantity.author.avatar;
   pinElementImage.alt = quantity.offer.description;
 
-  pinElement.addEventListener('click', function () {
-    showCard(quantity);
-  });
   return pinElement;
 }
 
@@ -228,11 +224,10 @@ function checkCountRoomsAndPeople() {
   }
 }
 
-pinMain.addEventListener('mousedown', function () {
-  init();
-});
-pinMain.addEventListener('keydown', function (evt) {
-  if (evt.keyCode === ENTER_KEYCODE) {
+pinMain.addEventListener('mousedown', init);
+
+pinMain.addEventListener('keydown', function (e) {
+  if (e.keyCode === ENTER_KEYCODE) {
     init();
   }
 });
@@ -249,54 +244,54 @@ checkCountRoomsAndPeople();
 
 var mockData = generateMockData(DEALS_NEARBY_AMOUNT);
 
-var openPopupHandler = function (pin, data) {
+function openPopupHandler(pin, offer) {
   pin.addEventListener('click', function () {
-    openPopup(data);
+    openPopup(offer);
   });
   pin.addEventListener('keydown', function (evt) {
     if (evt.keyCode === ENTER_KEYCODE) {
-      openPopup(data);
+      openPopup(offer);
     }
   });
-};
+}
 
-var onPopupEscPress = function (evt) {
-  if (evt.keyCode === ESC_KEYCODE) {
+function onPopupEscPress(e) {
+  if (e.keyCode === ESC_KEYCODE) {
     removePopup();
   }
-};
+}
 
-var openPopup = function (data) {
+function openPopup(offer) {
   var popup = document.querySelector('.popup');
   if (popup) {
     popup.remove();
   }
 
-  var template = showCard(data);
-  showCard(template);
+  showCard(offer);
   document.addEventListener('keydown', onPopupEscPress);
   closePopupHandler();
-};
+}
 
-var closePopupHandler = function () {
+function closePopupHandler() {
   var closePopup = document.querySelector('.popup__close');
   closePopup.addEventListener('click', function () {
     removePopup();
   });
-};
+}
 
-var removePopup = function () {
+function removePopup() {
   var popup = document.querySelector('.popup');
   popup.remove();
   document.removeEventListener('keydown', onPopupEscPress);
-};
+}
 
 function init() {
   createPins(mockData);
-
   activeMap();
   activeFrom();
   setCoordMainPin();
+
+  pinMain.removeEventListener('mousedown', init);
 
   var pins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
   for (var i = 0; i < pins.length; i++) {
