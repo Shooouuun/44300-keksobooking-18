@@ -50,25 +50,25 @@ var price = document.querySelector('#price');
 var timeIn = document.querySelector('#timein');
 var timeOut = document.querySelector('#timeout');
 
-var getRandomArbitrary = function (min, max) {
+var getRandomInt = function (min, max) {
   return Math.round(Math.random() * (max - min) + min);
 };
 
 var getFeatures = function (features) {
-  var countFeatures = getRandomArbitrary(1, features.length - 1);
+  var countFeatures = getRandomInt(1, features.length - 1);
   var featuresList = [];
   for (var i = 0; i < countFeatures; i++) {
-    featuresList.push(features[getRandomArbitrary(0, features.length - 1)]);
+    featuresList.push(features[getRandomInt(0, features.length - 1)]);
   }
 
   return featuresList;
 };
 
 var getPhotos = function () {
-  var countPhotos = getRandomArbitrary(1, 10);
+  var countPhotos = getRandomInt(1, 10);
   var photosList = [];
   for (var i = 0; i < countPhotos; i++) {
-    photosList.push(PATH_TO_PHOTO + getRandomArbitrary(1, 3) + '.jpg');
+    photosList.push(PATH_TO_PHOTO + getRandomInt(1, 3) + '.jpg');
   }
 
   return photosList;
@@ -80,21 +80,21 @@ var generateMockData = function () {
     var mock = {
       avatar: 'img/avatars/user0' + i + '.png',
       offer: {
-        title: 'Заголовок' + i,
-        address: getRandomArbitrary(ADDRESS_MIN, ADDRESS_MAX) + ', ' + getRandomArbitrary(ADDRESS_MIN, ADDRESS_MAX),
-        price: getRandomArbitrary(PRICE_MIN, PRICE_MAX),
-        type: TYPES[getRandomArbitrary(0, TYPES.length - 1)],
-        rooms: getRandomArbitrary(ROOMS_MIN, ROOMS_MAX),
-        guests: getRandomArbitrary(GUESTS_MIN, GUESTS_MAX),
-        checkin: CHECKIN[getRandomArbitrary(0, CHECKIN.length - 1)],
-        checkout: CHECKOUT[getRandomArbitrary(0, CHECKIN.length - 1)],
+        title: 'Заголовок ' + i,
+        address: getRandomInt(ADDRESS_MIN, ADDRESS_MAX) + ', ' + getRandomInt(ADDRESS_MIN, ADDRESS_MAX),
+        price: getRandomInt(PRICE_MIN, PRICE_MAX),
+        type: TYPES[getRandomInt(0, TYPES.length - 1)],
+        rooms: getRandomInt(ROOMS_MIN, ROOMS_MAX),
+        guests: getRandomInt(GUESTS_MIN, GUESTS_MAX),
+        checkin: CHECKIN[getRandomInt(0, CHECKIN.length - 1)],
+        checkout: CHECKOUT[getRandomInt(0, CHECKIN.length - 1)],
         features: getFeatures(FEATURES),
         description: 'Описание' + i,
         photos: getPhotos()
       },
       location: {
-        x: getRandomArbitrary(0, MAP_WIDTH),
-        y: getRandomArbitrary(LOCATION_Y_MIN, LOCATION_Y_MAX)
+        x: getRandomInt(0, MAP_WIDTH),
+        y: getRandomInt(LOCATION_Y_MIN, LOCATION_Y_MAX)
       }
     };
     mockList.push(mock);
@@ -106,7 +106,7 @@ var generateMockData = function () {
 var mockData = generateMockData();
 
 // Активация Карты
-var activeMap = function () {
+var activateMap = function () {
   document.querySelector('.map').classList.remove('map--faded');
 
   var mapFilters = document.querySelector('.map__filters');
@@ -122,7 +122,7 @@ var activeMap = function () {
 };
 
 // Активация формы
-var activeFrom = function () {
+var activateForm = function () {
   var adForm = document.querySelector('.ad-form');
   adForm.classList.remove('ad-form--disabled');
 
@@ -147,6 +147,8 @@ var setCoordMainPin = function (isDisabled) {
 
 
 var pinTemplate = document.querySelector('#pin').content.querySelector('button');
+var cardTemplate = document.querySelector('#card').content.querySelector('article');
+
 var fillPinTemplate = function (data) {
   var template = pinTemplate.cloneNode(true);
 
@@ -173,8 +175,6 @@ var renderPins = function (mock) {
 var fillTemplateCard = function (data) {
   var offer = data.offer;
   var avatar = data.avatar;
-
-  var cardTemplate = document.querySelector('#card').content.querySelector('article');
   var template = cardTemplate.cloneNode(true);
 
   template.querySelector('.popup__title').textContent = offer.title;
@@ -301,6 +301,7 @@ capacity.addEventListener('change', function () {
 
 houseType.addEventListener('change', function () {
   price.setAttribute('min', PRICE_FOR_TYPE[houseType.value]);
+  price.placeholder = PRICE_FOR_TYPE[houseType.value];
 });
 
 timeIn.addEventListener('change', function () {
@@ -311,10 +312,10 @@ timeOut.addEventListener('change', function () {
 });
 
 var init = function () {
-  activeMap();
+  activateMap();
   setCoordMainPin();
   renderPins(mockData);
-  activeFrom();
+  activateForm();
 
   var pins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
   for (var i = 0; i < pins.length; i++) {
